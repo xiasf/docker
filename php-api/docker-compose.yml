@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+  phpfpm:
+    image: "xiaobu191/php-api"
+    # 使用 docker network ，无需直接对外暴露端口
+    # ports:
+    # - "9000:9000"
+    networks:
+     - phpfpm-network
+    volumes:
+       - apps_share_data:/home/myweb/apps_share_data
+    restart: always
+
+  nginx:
+    image: "xiaobu191/php-api-nginx"
+    ports:
+     - "80:80"
+    networks:
+     - phpfpm-network
+    restart: always
+
+networks:
+  phpfpm-network:
+    name: "phpfpm-network"
+
+volumes:
+  apps_share_data:
+    name: "apps_share_data"

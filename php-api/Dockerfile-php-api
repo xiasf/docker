@@ -1,0 +1,23 @@
+# fpm 阶段
+FROM xiaobu191/php-7.4.33-fpm as api
+
+ARG API_PATH=/home/myweb/apps/api
+
+WORKDIR ${API_PATH}/public
+
+VOLUME /home/myweb/apps_share_data
+
+COPY www.conf /usr/local/etc/php-fpm.d/
+
+COPY --chown=www-data:www-data public/ ./
+
+# nginx 阶段
+FROM xiaobu191/nginx as nginx
+
+ARG API_PATH=/home/myweb/apps/api
+
+COPY api.conf /etc/nginx/conf.d/
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --chown=nginx:nginx --from=api ${API_PATH}/public ${API_PATH}/public
