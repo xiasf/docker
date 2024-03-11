@@ -1,0 +1,44 @@
+FROM php:7.4.33-cli-alpine3.16
+
+SHELL ["/bin/sh", "-cex"]
+
+RUN apk add --no-cache \
+        # checking for BZip2 support… yes checking for BZip2 in default path… not found configure: error: Please reinstall the BZip2 distribution
+        bzip2-dev \
+        # https://www.ifsvc.cn/posts/57
+        gettext-dev \
+        zlib-dev \
+        libzip-dev \
+        freetype-dev \
+        libjpeg-turbo-dev \
+        libpng-dev
+
+COPY install-php-extensions /usr/local/bin/
+
+# 安装自带的
+RUN docker-php-source extract \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install \
+        bz2 \
+        bcmath \
+        calendar \
+        gettext \
+        gd \
+        shmop \
+        sockets \
+        sysvsem \
+        mysqli \
+        pcntl \
+        pdo_mysql \
+        zip \
+    && docker-php-source delete
+
+# 安装外部的
+RUN chmod +x /usr/local/bin/install-php-extensions \
+    && install-php-extensions \
+        redis \
+        mcrypt \
+        msgpack \
+        inotify \
+        soap \
+        ssh2

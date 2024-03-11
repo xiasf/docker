@@ -1,0 +1,20 @@
+{
+    "apps": [
+        {
+            "name": "test",
+            "script": "./test.php",
+            "args": "start -test",
+            "interpreter": "/usr/local/bin/php",
+            "cwd": "/root/",
+            "watch": false
+        },
+        {
+            "name": "test2",
+            "script": "./test.php",
+            "args": "start -test2",
+            "interpreter": "/usr/local/bin/php",
+            "cwd": "/root/",
+            "watch": false
+        }
+    ]
+}

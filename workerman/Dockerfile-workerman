@@ -1,0 +1,28 @@
+# syntax=docker/dockerfile:experimental
+FROM xiaobu191/composer
+
+SHELL ["/bin/sh", "-cex"]
+
+WORKDIR /app
+
+COPY composer.json composer.lock ./
+
+ENV COMPOSER_HOME=/var/composer \
+    COMPOSER_CACHE_DIR=/var/composer/cache \
+    COMPOSER_ALLOW_SUPERUSER=1
+
+# https://www.coder.work/article/1356191
+VOLUME ["/var/composer"]
+
+RUN composer install \
+       --ignore-platform-reqs \
+       --no-interaction \
+       --no-plugins \
+       --no-scripts \
+       --prefer-dist \
+       -vv \
+    && composer clearcache
+
+COPY *.php ./
+
+CMD ["php", "start.php", "start"]

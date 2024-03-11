@@ -1,0 +1,9 @@
+FROM xiaobu191/php-7.4.33-cli
+
+SHELL ["/bin/sh", "-cex"]
+
+WORKDIR /composer
+
+COPY composer-install.sh ./
+
+RUN ./composer-install.sh
