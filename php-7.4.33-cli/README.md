@@ -8,6 +8,8 @@
 
 ```shell
 docker build -t xiaobu191/php-7.4.33-cli -f Dockerfile-php-7.4.33-cli .
+
+docker push xiaobu191/php-7.4.33-cli
 ```
 
 doc:

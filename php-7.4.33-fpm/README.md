@@ -8,6 +8,8 @@
 
 ```shell
 docker build -t xiaobu191/php-7.4.33-fpm -f Dockerfile-php-7.4.33-fpm .
+
+docker push xiaobu191/php-7.4.33-fpm
 ```
 
 doc:

@@ -41,4 +41,5 @@ RUN chmod +x /usr/local/bin/install-php-extensions \
         msgpack \
         inotify \
         soap \
-        ssh2
+        ssh2 \
+        mongodb
